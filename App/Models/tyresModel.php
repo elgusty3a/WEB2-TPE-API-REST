@@ -134,6 +134,13 @@ class tyresModel{
     $categorias = $query->fetchAll(PDO::FETCH_OBJ);
     return $categorias;
   }
-
+  function get($id){
+    $db = $this->db;
+    $query = $db->prepare('SELECT * FROM productos WHERE id_producto = ?');
+    $query->execute([$id]);
+    $product = $query->fetchAll(PDO::FETCH_OBJ);
+    return $product;
+  }
+  //crear function insert, paginacion y buscar
 
 }
