@@ -9,6 +9,9 @@ class APIView{
     private function _requestStatus($code){
         $status = array(
             200 => "OK",
+            201 => "Created",
+            400 => "Bad request",
+            401 => "Carece de credenciales validas de autenticacion para el recurso solicitado",
             404 => "Not found",
             500 => "Internal Server Error"
         );

@@ -1,16 +1,17 @@
 <?php
 require_once("libs/Router.php");
-require_once("api/controller/api.controller.php");
+require_once("api/controller/tyresApiController.php");
 
 $router = new Router();
 
 //define tabla
 $router->addRoute('products', 'GET', 'tyresApiController', 'getAllProducts');
+$router->addRoute('products/:ID', 'GET', 'tyresApiController', 'getProduct');
 $router->addRoute('paginacion', 'GET', 'tyresApiController', 'pagination');
-$router->addRoute('comments/:ID', 'GET', 'tyresApiController', 'getAllComments');
+$router->addRoute('comments', 'GET', 'tyresApiController', 'getAllComments');
 $router->addRoute('comments', 'POST', 'tyresApiController', 'sendComment');
 $router->addRoute('comments/:ID', 'DELETE', 'tyresApiController', 'deleteComment');
-$router->addRoute('getSearch/:ID', 'GET', 'tyresApiController', 'getSearch');
+// $router->addRoute('getSearch/:ID', 'GET', 'tyresApiController', 'getSearch');
 
 
 //rutea
