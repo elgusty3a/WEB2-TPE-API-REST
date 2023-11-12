@@ -6,7 +6,7 @@ $router = new Router();
 
 //define tabla
 $router->addRoute('products', 'GET', 'tyresApiController', 'getAllProducts');
-$router->addRoute('products/:ID', 'GET', 'tyresApiController', 'getProduct');
+$router->addRoute('product/:ID', 'GET', 'tyresApiController', 'getProduct');
 $router->addRoute('paginacion', 'GET', 'tyresApiController', 'pagination');
 $router->addRoute('comments', 'GET', 'commentsApiController', 'getAllComments');
 $router->addRoute('comments', 'POST', 'commentsApiController', 'sendComment');
