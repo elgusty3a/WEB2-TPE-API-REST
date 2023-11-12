@@ -8,13 +8,14 @@ $router = new Router();
 //define tabla
 $router->addRoute('products', 'GET', 'tyresApiController', 'getAllProducts');
 $router->addRoute('product/:ID', 'GET', 'tyresApiController', 'getProduct');
-$router->addRoute('paginacion', 'GET', 'tyresApiController', 'pagination');
+// $router->addRoute('paginacion', 'GET', 'tyresApiController', 'paginacion');
 $router->addRoute('comments', 'GET', 'tyresApiController', 'getAllComments');
 $router->addRoute('comment/:ID', 'GET', 'tyresApiController', 'getComment');
 $router->addRoute('comments/product/:ID', 'GET', 'tyresApiController', 'getAllCommentsByProduct');
 $router->addRoute('comments', 'POST', 'tyresApiController', 'sendComment');
 $router->addRoute('comment/:ID', 'DELETE', 'tyresApiController', 'deleteComment');
-// $router->addRoute('getSearch/:ID', 'GET', 'tyresApiController', 'getSearch');
+$router->addRoute('comment', 'PUT', 'tyresApiController', 'updateComment');
+
 
 
 //rutea

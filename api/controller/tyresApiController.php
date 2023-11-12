@@ -31,19 +31,9 @@ class tyresApiController{
         }else 
             $this->view->response("El producto con el id=$id no existe", 404);
    }
-     public function pagination($params = null){
-         $paginacion = $this->model->paginacion();
-         return $this->view->response($paginacion, 200);
-     }
-     
-    //  public function getSearch($params = null){
-    //      $id = $params[':ID'];
-    //      $search = $this->model->get($id);
-    //      if($search){
-    //          $this->model->buscar($id);
-    //          $this->view->response($search, 200);
-    //      }else 
-    //          $this->view->response("La busqueda con el id=$id no existe", 400);
+    // public function paginacion($params = null){
+    //     $paginacion = $this->model->paginacion();
+    //     return $this->view->response($paginacion, 200);
     // }
 
 
@@ -87,26 +77,11 @@ class tyresApiController{
         }else{
             $this->view->response("Hubo un error, el producto no existe", 500);
         }
-        // if(empty($comment->titulo) || empty($comment->comentario) || empty($comment->id_producto)){
-        //     $this->view->response("Complete los datos", 400);
-        // }else{
-        //     $id = $this->model->insertComment($comment->marca, $comment->medida, $comment->inidice_carga, $comment->indice_velocidad, $comment->precio, $comment->id_categoria);
-        //     $comment = $this->model->get($id);
-        //     $this->view->response($comment,  200);
-        // }
-   }
-//    public function deleteComment($params = null){
-//        $id = $params[':ID'];
-//        $comment = $this->model->get($id);
-//        if($comment){
-//            $this->model->eraseItem($id);
-//            $this->view->response($comment, 200);
-//        }else 
-//            $this->view->response("El comentario con el id=$id no existe", 404);
-//    }
+    }
+
 
 function deleteComment($params)
-    {   
+    {
         if (!isset($params[':ID'])) {
             $this->view->response("No existe el comentario", 404);
             die();
@@ -114,12 +89,23 @@ function deleteComment($params)
         $id = $params[':ID'];
         $comment = $this->model->getComment($id);
         if ($comment) {
-            $this->model->deleteComment($comment[0]->id);
+            $this->model->deleteComment($comment->id);
             $this->view->response("El comentario se elimino con exito", 200);
         } else {
             $this->view->response("No existe el comentario", 404);
         }
     }
+
+function updateComment(){
+    $comment = $this->getData();
+    $id = $this->model->getComment($comment->id);
+    if ($id) {
+        $this->model->updateComment($comment->id_producto,$comment->autor,$comment->titulo,$comment->comentario,$comment->valoracion,$comment->fecha,$comment->id);
+        $this->view->response("El comentario se actualizó con exito", 200);
+    } else {
+        $this->view->response("No existe el comentario", 404);
+    }
+}
 
 
 
