@@ -8,9 +8,9 @@ $router = new Router();
 $router->addRoute('products', 'GET', 'tyresApiController', 'getAllProducts');
 $router->addRoute('products/:ID', 'GET', 'tyresApiController', 'getProduct');
 $router->addRoute('paginacion', 'GET', 'tyresApiController', 'pagination');
-$router->addRoute('comments', 'GET', 'tyresApiController', 'getAllComments');
-$router->addRoute('comments', 'POST', 'tyresApiController', 'sendComment');
-$router->addRoute('comments/:ID', 'DELETE', 'tyresApiController', 'deleteComment');
+$router->addRoute('comments', 'GET', 'commentsApiController', 'getAllComments');
+$router->addRoute('comments', 'POST', 'commentsApiController', 'sendComment');
+$router->addRoute('comments/:ID', 'DELETE', 'commentsApiController', 'deleteComment');
 // $router->addRoute('getSearch/:ID', 'GET', 'tyresApiController', 'getSearch');
 
 
