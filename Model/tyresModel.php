@@ -138,12 +138,22 @@ class tyresModel{
     return $product;
   }
 
+
+  //? De aqui en adelante se trabaja con la tabla comentarios
+
   function getComments(){
     $db = $this->db;
     $query = $db->prepare('SELECT * FROM comentarios c INNER JOIN productos p ON c.id_producto = p.id_producto');
     $query->execute();
     $comments = $query->fetchAll(PDO::FETCH_OBJ);
     return $comments;
+  }
+  function getComment($id){
+    $db = $this->db;
+    $query = $db->prepare('SELECT * FROM comentarios c INNER JOIN productos p ON c.id_producto = p.id_producto WHERE c.id = ?');
+    $query->execute([$id]);
+    $comment = $query->fetchAll(PDO::FETCH_OBJ);
+    return $comment;
   }
   function getCommentsByProduct($id){
     $db = $this->db;
@@ -153,7 +163,24 @@ class tyresModel{
     return $comments;
   }
 
+  function insertComment($id_producto, $autor, $titulo, $comentario, $valoracion)
+    {
+      $db = $this->db;
+      $sql =  "INSERT INTO comentarios (id_producto,autor,titulo,comentario,valoracion) VALUES (?,?,?,?,?)";
+      $query = $db->prepare($sql);
+      $query->execute([$id_producto, $autor, $titulo, $comentario, $valoracion]);
+      return $query;
+    }
 
-  //crear function insert, paginacion y buscar
+  function deleteComment($id){
+    $db = $this->db;
+    $sql = "DELETE FROM comentarios WHERE id = ?";
+    $query = $db->prepare($sql);
+    $query->execute([$id]);
+    // return $query->rowCount();
+  }
+
+
+  //crear function paginacion y buscar
 
 }
