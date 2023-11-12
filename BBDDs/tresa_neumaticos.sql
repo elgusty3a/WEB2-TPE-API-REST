@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 16-10-2023 a las 20:11:35
+-- Tiempo de generación: 12-11-2023 a las 19:54:34
 -- Versión del servidor: 10.4.28-MariaDB
 -- Versión de PHP: 8.2.4
 
@@ -42,6 +42,35 @@ INSERT INTO `categorias` (`id`, `categoria`) VALUES
 (1, 'Cubierta'),
 (2, 'Camara'),
 (3, 'Llanta');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `comentarios`
+--
+
+CREATE TABLE `comentarios` (
+  `id` int(11) NOT NULL,
+  `id_producto` int(11) NOT NULL,
+  `autor` varchar(50) NOT NULL,
+  `titulo` varchar(50) NOT NULL,
+  `comentario` varchar(250) NOT NULL,
+  `valoracion` int(5) NOT NULL,
+  `fecha` datetime NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `comentarios`
+--
+
+INSERT INTO `comentarios` (`id`, `id_producto`, `autor`, `titulo`, `comentario`, `valoracion`, `fecha`) VALUES
+(1, 3, 'Juan', 'Confort', 'Firestone resulto una cubierta mas dura de lo esperado, se nota en el andar del coche, no recomiendo.', 2, '2023-11-12 15:49:44'),
+(2, 8, 'Mateo', 'Opinion durabilidad', 'Impecable, super recomendable, pero tener en cuenta respetar los kms para hacer rotacion y balanceo', 4, '2023-11-12 15:51:01'),
+(3, 5, 'Federico', 'Deformacion', 'Compré dos y una de las cuañes se deformo a los 2000 kms. un desastre, muy duras y tienden a deformarse. Uno paga la marca al final de cuentas', 1, '2023-11-12 15:52:02'),
+(4, 2, 'Taylor Paladini', 'Sin problemas', 'Recibi el producto en tiempo y forma, ni un problema. La cubierta tiene buen andar, buena relacion precio calidad.', 5, '2023-11-12 15:53:26'),
+(5, 7, 'Miguel', 'Demora', 'La cubierta cumple lo que promete, sin embargo el envio tardó un mes, no se si es problema de la empresa de transporte o del vendedor que demoró el despacho.', 3, '2023-11-12 15:55:06'),
+(6, 32, 'Patty Swift', 'Impecabe', 'Buena atencion al cliente y predisposicion para reclamos, tuve un inconveniente con mi tarjeta de credito y lo solucionaron al instante. El producto muy bueno.', 4, '2023-11-12 15:56:26'),
+(8, 3, 'Maximiliano War', 'Fire Stone', 'Como su nombre lo indica, una piedra', 2, '2023-11-12 19:17:21');
 
 -- --------------------------------------------------------
 
@@ -127,6 +156,13 @@ ALTER TABLE `categorias`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indices de la tabla `comentarios`
+--
+ALTER TABLE `comentarios`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `id_producto` (`id_producto`) USING BTREE;
+
+--
 -- Indices de la tabla `productos`
 --
 ALTER TABLE `productos`
@@ -152,6 +188,12 @@ ALTER TABLE `categorias`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
+-- AUTO_INCREMENT de la tabla `comentarios`
+--
+ALTER TABLE `comentarios`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+
+--
 -- AUTO_INCREMENT de la tabla `productos`
 --
 ALTER TABLE `productos`
@@ -162,6 +204,22 @@ ALTER TABLE `productos`
 --
 ALTER TABLE `usuarios`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- Restricciones para tablas volcadas
+--
+
+--
+-- Filtros para la tabla `comentarios`
+--
+ALTER TABLE `comentarios`
+  ADD CONSTRAINT `comentarios_ibfk_1` FOREIGN KEY (`id_producto`) REFERENCES `productos` (`id_producto`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Filtros para la tabla `productos`
+--
+ALTER TABLE `productos`
+  ADD CONSTRAINT `productos_ibfk_1` FOREIGN KEY (`id_categoria`) REFERENCES `categorias` (`id`) ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
