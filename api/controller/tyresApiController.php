@@ -45,4 +45,41 @@ class tyresApiController{
     //      }else 
     //          $this->view->response("La busqueda con el id=$id no existe", 400);
     // }
+
+    public function getAllComments($params = null){
+        $comments = $this->model->getComments();
+        return $this->view->response($comments, 200);
+    }
+    public function getAllCommentsByProduct($params = null){
+        $id = $params[':ID'];
+        $product = $this->model->getCommentsByProduct($id);
+        if($product){
+            // $this->model->get($id);
+            $this->view->response($product, 200);
+        }else 
+            $this->view->response("El producto con el id=$id no existe o no tiene comentarios", 404);
+   }
+    public function sendComment($params = null){
+        $comment = $this-> getData();
+        if(empty($comment->titulo) || empty($comment->comentario) || empty($comment->prioridad)){
+            $this->view->response("Complete los datos", 400);
+        }else{
+            $id = $this->model->insert($comment->marca, $comment->medida, $comment->inidice_carga, $comment->indice_velocidad, $comment->precio, $comment->id_categoria);
+            $comment = $this->model->get($id);
+            $this->view->response($comment,  200);
+        }
+   }
+   public function deleteComment($params = null){
+       $id = $params[':ID'];
+       $comment = $this->model->get($id);
+       if($comment){
+           $this->model->eraseItem($id);
+           $this->view->response($comment, 200);
+       }else 
+           $this->view->response("El comentario con el id=$id no existe", 404);
+   }
+
+
+
+
 }

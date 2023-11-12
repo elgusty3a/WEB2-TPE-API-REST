@@ -137,6 +137,23 @@ class tyresModel{
     $product = $query->fetchAll(PDO::FETCH_OBJ);
     return $product;
   }
+
+  function getComments(){
+    $db = $this->db;
+    $query = $db->prepare('SELECT * FROM comentarios c INNER JOIN productos p ON c.id_producto = p.id_producto');
+    $query->execute();
+    $comments = $query->fetchAll(PDO::FETCH_OBJ);
+    return $comments;
+  }
+  function getCommentsByProduct($id){
+    $db = $this->db;
+    $query = $db->prepare('SELECT * FROM comentarios c INNER JOIN productos p ON c.id_producto = p.id_producto WHERE c.id_producto = ?');
+    $query->execute([$id]);
+    $comments = $query->fetchAll(PDO::FETCH_OBJ);
+    return $comments;
+  }
+
+
   //crear function insert, paginacion y buscar
 
 }
