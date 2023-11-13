@@ -53,9 +53,17 @@ class tyresModel{
   /**
    *? Obtiene la lista de productos de la DB
    */
-  function getListProducts(){
+  function getListProducts($params = null){
     $db = $this->db;
-    $query = $db->prepare('SELECT * FROM productos p INNER JOIN categorias c ON p.id_categoria = c.id');
+    $sql= "SELECT * FROM productos p INNER JOIN categorias c ON p.id_categoria = c.id";
+    if(isset($params[0])){
+      $sql .=' ORDER BY p.'. $params[0];
+			if(isset($params[1])){
+        $sql .=' '.$params[1];
+			}
+    }
+    // var_dump($sql);die;
+    $query = $db->prepare($sql);
     $query->execute();
     $products = $query->fetchAll(PDO::FETCH_OBJ);
     return $products;

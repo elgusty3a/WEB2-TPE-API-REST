@@ -19,7 +19,14 @@ class tyresApiController{
     }
 
     public function getAllProducts($params = null){
-        $products = $this->model->getListProducts();
+        $sort = $_GET['sort'];
+        $order = $_GET['order'];
+        $params = [$order, $sort];
+        if(isset($params)){
+            $products = $this->model->getListProducts($params);
+        }else{
+            $products = $this->model->getListProducts();
+        }
         return $this->view->response($products, 200);
     }
     public function getProduct($params = null){
