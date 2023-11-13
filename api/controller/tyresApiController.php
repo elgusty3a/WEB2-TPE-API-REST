@@ -21,12 +21,26 @@ class tyresApiController{
     public function getAllProducts($params = null){
         if (!empty($_GET['order'])) {
             $order = $_GET['order'];
+        } else {
+            $order = "precio";}
             if (!empty($_GET['sort'])) {
                 $sort = $_GET['sort'];
-            } else { $sort = "asc";}
-            $params = [$order, $sort];
-            // var_dump($_GET);die;
-        }
+            } else {
+                $sort = "asc";
+            }
+            if (!empty($_GET['pagina'])) {
+                $page = $_GET['pagina'];
+            } else {
+                $page = "1";
+            }
+            if (!empty($_GET['cantidad'])) {
+                $cant = $_GET['cantidad'];
+            } else {
+                $cant = "50";
+            }
+            $comienzo = ($cant * $page)-$cant;
+            // var_dump($cant);die;
+        $params = [$order, $sort , $cant, $comienzo];
         if(isset($params)){
             $products = $this->model->getListProducts($params);
         }else{
@@ -40,14 +54,9 @@ class tyresApiController{
         if($product){
             // $this->model->get($id);
             $this->view->response($product, 200);
-        }else 
+        }else
             $this->view->response("El producto con el id=$id no existe", 404);
    }
-    // public function paginacion($params = null){
-    //     $paginacion = $this->model->paginacion();
-    //     return $this->view->response($paginacion, 200);
-    // }
-
 
      //? De aqui en adelante se trabaja con la tabla comentarios
 
@@ -61,7 +70,7 @@ class tyresApiController{
         if($comment){
             // $this->model->get($id);
             $this->view->response($comment, 200);
-        }else 
+        }else
             $this->view->response("El comment con el id=$id no existe", 404);
    }
     public function getAllCommentsByProduct($params = null){
@@ -70,7 +79,7 @@ class tyresApiController{
         if($product){
             // $this->model->get($id);
             $this->view->response($product, 200);
-        }else 
+        }else
             $this->view->response("El producto con el id=$id no existe o no tiene comentarios", 404);
    }
     public function sendComment($params = null){
