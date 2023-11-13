@@ -19,9 +19,14 @@ class tyresApiController{
     }
 
     public function getAllProducts($params = null){
-        $sort = $_GET['sort'];
-        $order = $_GET['order'];
-        $params = [$order, $sort];
+        if (!empty($_GET['order'])) {
+            $order = $_GET['order'];
+            if (!empty($_GET['sort'])) {
+                $sort = $_GET['sort'];
+            } else { $sort = "asc";}
+            $params = [$order, $sort];
+            // var_dump($_GET);die;
+        }
         if(isset($params)){
             $products = $this->model->getListProducts($params);
         }else{
