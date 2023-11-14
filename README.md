@@ -22,7 +22,7 @@
 ##
 ## <p align=center> GRÁFICO DE ENTIDAD-RELACIÓN
 <p align=center>
-<img src="WEB2-TPE-API-REST/BBDDs/estructuraDDBB.jpg" alt="grafico-entidad-relacion">
+<img src="BBDDs/estructuraDDBB.jpg" alt="grafico-entidad-relacion">
 
 - La tabla "usuarios" se utilizará a modo de LOGIN del administrador del sitio.
 - En la tabla "productos" se guardarán los datos de los mismos y se detallará el producto que deseé adquirir.
@@ -34,24 +34,85 @@
 
 ## Herramientas para el consumo de la API
 
-- Paa las pruebas de la API se utilizo la extension oficial de Visual Studio Code de Postman, la cual tiene la siguiente apariencia.
+- Para las pruebas de la API se utilizó la extension oficial para Visual Studio Code de Postman, la cual tiene la siguiente apariencia.
 
-<img src="WEB2-TPE-API-REST/BBDDs/POSTMAN-extension.jpg" alt="Postman-en-VSCODE">
+<img src="BBDDs/POSTMAN-extension.jpg" alt="Postman-en-VSCODE">
 
 
-### Metodos GET, y ejemplos de uso
+### Método GET, y ejemplos de uso
 - El metodo GET se utiliza para obtener datos desde la DDBB y la forma de uso se detalla con los ejemplos siguientes:
 
- 1. Escribiendo el comando:
+ 1. LISTAR ARTICULOS: Escribiendo el comando:
  http://localhost/TUDAI-xampp/WEB2-TPE-API-REST/api/products
- obtendremos todos los articulos (o en su defecto un máximo de 50) de la lista de productos ordenados por defecto de forma ascendente de acuerdo a su precio.
+ se obtiene todos los articulos (o en su defecto un máximo de 50) de la lista de productos ordenados por defecto de forma ascendente de acuerdo a su precio.
  
- 2. Escribiendo el comando:
+ 2. LISTAR ARTICULOS ORDENADOS: Escribiendo el comando:
  http://localhost/TUDAI-xampp/WEB2-TPE-API-REST/api/products?order=id_producto&sort=desc
- nos mostrará todos los productos (o en su defecto un máximo de 50) ordenados por su id correspondiente de forma descendente. Los parametros order y sort de la URL se pueden editar para hacer la busqueda que se desee.
+  mostrará todos los productos (o en su defecto un máximo de 50) ordenados por su id correspondiente de forma descendente. Los parametros order y sort de la URL se pueden editar para hacer la busqueda que se desee.
 
+ 3. LISTAR UN PRODUCTO POR ID: Mediante la URL http://localhost/TUDAI-xampp/WEB2-TPE-API-REST/api/procuct/2 se puede, en este caso de ejemplo, mostarr el comentario Nº2.
 
+ 4. LISTAR COMENTARIOS: Escribiendo el comando:
+ http://localhost/TUDAI-xampp/WEB2-TPE-API-REST/api/comments se obtiene todos los comentarios de la tabla de comentarios ordenados por defecto de forma ascendente de acuerdo a su id.
 
+ 5. LISTAR COMENTARIOS DE UN DETERMINADO ARTICULO: Con el comando:
+ http://localhost/TUDAI-xampp/WEB2-TPE-API-REST/api/comments/product/8 se listan los comentarios pertenecientes al producto 8, siendo 8 el id del producto. Escribop de forma general sería ...api/comments/product/:ID
+
+ 6. LISTAR UN COMENTARIO POR ID: Mediante la URL http://localhost/TUDAI-xampp/WEB2-TPE-API-REST/api/comment/2 se puede, en este caso de ejemplo, mostarr el comentario Nº2.
+
+ 7. PAGINACION: LA paginacion se logra utilizando URLs de la siguiente manera: http://localhost/TUDAI-xampp/WEB2-TPE-API-REST/api/products?order=precio&sort=desc&pagina=1&cantidad=5 la cual muestra una lista de 5 productos comenzando por el primero (pagina 1) ordenados, en este caso, por el campo precio de forma descendente.
+
+### Método POST, y ejemplo de uso
+- El metodo POST se utiliza para crear datos desde un recurso especifico y los inserta en la DDBB y la forma de uso se detalla con lo ejemplo siguiente:
+
+1. Con la URL http://localhost/TUDAI-xampp/WEB2-TPE-API-REST/api/comments puedo agregar un comentario al registro de comentarios de la DDBBs cuando mando por el body de la request los datos en el orden especifico en el que se encuentran los campos de la DDBBs. Por ejemplo:
+```json
+[
+{
+"id_producto": 3,
+"autor": "Tomas",
+"titulo": "Precio elevado",
+"comentario": "El precio es muy elevado para lo que brinda el producto",
+"valoracion": 3
+}
+]
+```
+### Método DELETE, y ejemplo de uso
+- El metodo DELETE se utiliza para eliminar datos de la DDBB y la forma de uso se detalla con lo ejemplo siguiente:
+
+1. Escribiendo la URL de la forma http://localhost/TUDAI-xampp/WEB2-TPE-API-REST/api/comment/1 se borra el comentario con el id = 1.
+De forma general se puede escribir .../api/comment/:ID para eliminar cualquier comentario existente.
+
+### Método PUT, y ejemplo de uso
+- El metodo PUT se utiliza para editar o modificar datos de la DDBB y la forma de uso se detalla con lo ejemplo siguiente:
+
+1. Para editar datos de un registro existente en la base de datos lo que hay que hacer es formar un JSON en el body de la request, como si fueramos a crear un dato nuevo, pero en lugar de utilizar el metodo POST se utiliza el PUT.
+La URL es de la forma http://localhost/TUDAI-xampp/WEB2-TPE-API-REST/api/comment y el JSON sería:
+```JSON
+{
+    "id": 1,
+    "id_producto": 3,
+    "autor": "Juan",
+    "titulo": "Confort",
+    "comentario": "Firestone resulto una cubierta mas dura de lo esperado, se nota en el andar del coche, no recomiendo.",
+    "valoracion": 2,
+    "fecha": "2023-11-12 15:49:44"
+}
+```
+siendo id el numero identificador del comentario a editar.
+#
+# <p align=center>Tabla de ruteo y endpoints
+
+| Endpoint             | Método  | Controlador        | Función                 |
+|:-------------------: |:-------:| :-----------------:| :----------------------:|
+| products             | GET     | tyresApiController | getAllProducts          |
+| product/:I           | GET     | tyresApiController | getProduct              |
+| comments             | GET     | tyresApiController | getAllComments          |
+| comment/:ID          | GET     | tyresApiController | getComment              |
+| comments/product/:ID | GET     | tyresApiController | getAllCommentsByProduct |
+| comments             | POST    | tyresApiController | sendComment             |
+| comment/:ID          | DELETE  | tyresApiController | deleteComment           |
+| comment              | PUT     | tyresApiController | updateComment           |
 
 
 #
