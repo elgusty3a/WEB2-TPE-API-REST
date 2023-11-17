@@ -87,7 +87,7 @@ De forma general se puede escribir .../api/comment/:ID para eliminar cualquier c
 - El metodo PUT se utiliza para editar o modificar datos de la DDBB y la forma de uso se detalla con lo ejemplo siguiente:
 
 1. Para editar datos de un registro existente en la base de datos lo que hay que hacer es formar un JSON en el body de la request, como si fueramos a crear un dato nuevo, pero en lugar de utilizar el metodo POST se utiliza el PUT.
-La URL es de la forma http://localhost/TUDAI-xampp/WEB2-TPE-API-REST/api/comment y el JSON sería:
+La URL es de la forma http://localhost/TUDAI-xampp/WEB2-TPE-API-REST/api/comment/1 y el JSON sería:
 ```JSON
 {
     "id": 1,
@@ -99,7 +99,7 @@ La URL es de la forma http://localhost/TUDAI-xampp/WEB2-TPE-API-REST/api/comment
     "fecha": "2023-11-12 15:49:44"
 }
 ```
-siendo id el numero identificador del comentario a editar.
+siendo id el numero identificador del comentario a editar, tiene que coindicir el indicado en la URL y el que pongo en el JSON del body.
 #
 # <p align=center>Tabla de ruteo y endpoints
 
@@ -112,7 +112,7 @@ siendo id el numero identificador del comentario a editar.
 | comments/product/:ID | GET     | tyresApiController | getAllCommentsByProduct |
 | comments             | POST    | tyresApiController | sendComment             |
 | comment/:ID          | DELETE  | tyresApiController | deleteComment           |
-| comment              | PUT     | tyresApiController | updateComment           |
+| comment/:ID          | PUT     | tyresApiController | updateComment           |
 
 
 #

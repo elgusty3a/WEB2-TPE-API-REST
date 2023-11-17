@@ -4,7 +4,6 @@ require_once('./config.php');
 class tyresModel{
 
   private $db;
-  private $view;
 
     public function __construct()
     {
@@ -23,13 +22,9 @@ class tyresModel{
 
         $dbString = "mysql:host=$host;dbname=$db;charset=$charset";
 
-        try {
-            $this->db = new PDO($dbString, $user, $pass);
-        } catch(PDOException $e) {
-          $this->view->errorDBConect();
-          die;
+        $this->db = new PDO($dbString, $user, $pass);
     }
-}
+
 
 
   /**
@@ -125,11 +120,5 @@ class tyresModel{
     return $comment;
   }
 
-  // function paginacion(){
-
-  // }
-
-
-  //crear function paginacion y buscar
 
 }

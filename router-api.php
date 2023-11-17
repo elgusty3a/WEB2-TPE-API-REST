@@ -13,7 +13,7 @@ $router->addRoute('comment/:ID', 'GET', 'tyresApiController', 'getComment');
 $router->addRoute('comments/product/:ID', 'GET', 'tyresApiController', 'getAllCommentsByProduct');
 $router->addRoute('comments', 'POST', 'tyresApiController', 'sendComment');
 $router->addRoute('comment/:ID', 'DELETE', 'tyresApiController', 'deleteComment');
-$router->addRoute('comment', 'PUT', 'tyresApiController', 'updateComment');
+$router->addRoute('comment/:ID', 'PUT', 'tyresApiController', 'updateComment');
 
 
 

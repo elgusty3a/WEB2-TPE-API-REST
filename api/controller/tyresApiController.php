@@ -91,12 +91,12 @@ class tyresApiController{
         if($existProduct){
             $sendOk = $this->model->insertComment($comment[0]->id_producto, $comment[0]->autor, $comment[0]->titulo, $comment[0]->comentario, $comment[0]->valoracion);
             if ($sendOk) {
-                $this->view->response("Se insertó correctamente", 200);
+                $this->view->response("Se insertó correctamente", 201);
             } else {
-                $this->view->response("Hubo un error", 500);
+                $this->view->response("Hubo un error", 400);
             }
         }else{
-            $this->view->response("Hubo un error, el producto no existe", 500);
+            $this->view->response("Hubo un error, el producto no existe", 404);
         }
     }
 
@@ -122,7 +122,7 @@ function updateComment(){
     $id = $this->model->getComment($comment->id);
     if ($id) {
         $this->model->updateComment($comment->id_producto,$comment->autor,$comment->titulo,$comment->comentario,$comment->valoracion,$comment->fecha,$comment->id);
-        $this->view->response("El comentario se actualizó con exito", 200);
+        $this->view->response("El comentario se actualizó con exito", 201);
     } else {
         $this->view->response("No existe el comentario", 404);
     }
